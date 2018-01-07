@@ -12,5 +12,4 @@ public class ChartToFacebookController {
 		return"postreport";
 	}
 	
-	
 }
