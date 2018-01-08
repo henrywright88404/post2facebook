@@ -92,7 +92,6 @@ public class GmailToFacebook {
 					FacebookPost fbPost = new FacebookPost();
 					fbPost.createTextPostInGroup(message.getMessage(), fbPost.getJava101id());
 					System.out.println("has been posted before = "+message.hasBeenPosted());
-					
 					message.setBeenPosted(true);
 					System.out.println("has been posted after = "+message.hasBeenPosted());
 					session.update(message);
