@@ -17,6 +17,11 @@ public class GmailToFacebookContoller {
 		
 		EmailMessage email = g2f.getNextUnpostedMessage();
 		
+		if(email == null){
+			g2f.CheckForNewMessagesAddToDB();
+			email = g2f.getNextUnpostedMessage();
+		}
+		
 		theModel.addAttribute("email", email);
 		return "gmailtofacebook";
 	}
