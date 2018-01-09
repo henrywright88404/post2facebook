@@ -44,6 +44,32 @@ public class GmailToFacebook {
 		return factory;
 		
 	}
+	
+	public void addMessageToDB(EmailMessage message){
+		SessionFactory factory = getSessionFactory();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		session.save(message);
+		session.getTransaction().commit();
+	}
+	
+	public void deleteMessageFromDB(EmailMessage message){
+		SessionFactory factory = getSessionFactory();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		session.delete(message);
+		session.getTransaction().commit();
+	}
+	
+	public EmailMessage getMessagefromDB(String messageid){
+		SessionFactory factory = getSessionFactory();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		EmailMessage message = session.get(EmailMessage.class, messageid);
+		session.getTransaction().commit();
+		session.close();
+		return message;
+	}
 
 	public void CheckForNewMessagesAddToDB(){
 		// create session factory 
