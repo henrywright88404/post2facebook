@@ -60,8 +60,9 @@ public class GmailToFacebook {
 				if(emailFromDB !=null){
 					System.out.println("Message from DB "+ emailFromDB.getId());
 				}else{
-					
-					session.save(GmailController.getMessage(messageID));
+					String messageContent = GmailController.getMessage(messageID).toPrettyString();
+					EmailMessage message = new EmailMessage(messageID, messageContent);
+					session.save(message);
 					System.out.println("Emails Missing from DB ="+ ++count);
 				}
 			}
