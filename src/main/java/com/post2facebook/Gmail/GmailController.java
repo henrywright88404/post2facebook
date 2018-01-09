@@ -70,7 +70,7 @@ public class GmailController {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-            GmailController.class.getResourceAsStream("client_secret_477694311220-cpccia8vgdof4i53acfioictb2l8jih1.apps.googleusercontent.com.json");
+            GmailController.class.getResourceAsStream("/client_secret_477694311220-cpccia8vgdof4i53acfioictb2l8jih1.apps.googleusercontent.com.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
