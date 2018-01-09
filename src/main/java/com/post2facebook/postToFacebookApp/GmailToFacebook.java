@@ -15,6 +15,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.StringUtils;
+import com.google.api.services.gmail.model.MessagePart;
 import com.post2facebook.Gmail.EmailMessage;
 import com.post2facebook.Gmail.GmailController;
 import com.post2facebook.facebook.FacebookPost;
@@ -38,7 +41,6 @@ public class GmailToFacebook {
 					.mergeProperties(dbConnectionProperties)
 					.addAnnotatedClass(EmailMessage.class)
 					.buildSessionFactory();
-		System.out.println(factory.getProperties().toString());
 		return factory;
 		
 	}
@@ -60,13 +62,27 @@ public class GmailToFacebook {
 				if(emailFromDB !=null){
 					System.out.println("Message from DB "+ emailFromDB.getId());
 				}else{
-					String messageContent = GmailController.getMessage(messageID).toPrettyString();
-					EmailMessage message = new EmailMessage(messageID, messageContent);
+					List<MessagePart> messageContent = GmailController
+							.getMessage(messageID).getPayload().getParts();
+					
+        			String msg = StringUtils
+        					.newStringUtf8(Base64.decodeBase64(messageContent
+        							.get(0)
+        							.getBody()
+        							.getData()));
+        			
+        			msg = msg.replaceAll("Hi Marc", "Hi Java 101");
+        			msg = msg.replaceAll("Hey Marc", "Hi Java 101");
+        			msg = msg.substring(0, msg.indexOf("34 E Germantown Pike"));
+        			
+					EmailMessage message = new EmailMessage(messageID, msg);
+					System.out.println("Message length: "+ message.getMessage().length());
 					session.save(message);
 					System.out.println("Emails Missing from DB ="+ ++count);
 				}
 			}
 			
+			session.getTransaction().commit();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally{
@@ -122,6 +138,10 @@ public class GmailToFacebook {
 				
 				List<EmailMessage> messageList = session.createQuery(criteria).getResultList();
 				
+				if (messageList.size()<1){
+					EmailMessage error = new EmailMessage("999999999","There were no messages in the database");
+					return error;
+				}
 				return messageList.get(0);
 	}
 }
