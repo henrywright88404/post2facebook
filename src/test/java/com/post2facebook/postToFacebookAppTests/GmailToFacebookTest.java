@@ -40,8 +40,9 @@ public class GmailToFacebookTest {
 		GmailToFacebook g2f = new GmailToFacebook();
 
 		EmailMessage message = g2f.getNextUnpostedMessage();
+		System.out.println(message.getId());
 		
-		if(message == null){
+		if(message.getId() == null || message.getId().equals("") || message.getId().equals("999999999")){
 			g2f.CheckForNewMessagesAddToDB();
 			message = g2f.getNextUnpostedMessage();
 		}
