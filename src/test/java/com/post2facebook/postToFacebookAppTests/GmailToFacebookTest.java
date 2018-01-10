@@ -34,5 +34,21 @@ public class GmailToFacebookTest {
 		assertNull(delmessage);
 
 	}
+	
+	@Test
+	public void ensureDBhasMessages(){
+		GmailToFacebook g2f = new GmailToFacebook();
+
+		EmailMessage message = g2f.getNextUnpostedMessage();
+		
+		if(message == null){
+			g2f.CheckForNewMessagesAddToDB();
+			message = g2f.getNextUnpostedMessage();
+		}
+		
+		
+		assertNotNull(message);
+		
+	}
 
 }
