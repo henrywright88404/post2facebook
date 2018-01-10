@@ -109,6 +109,13 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire-version)</version>
+				<configuration>
+					<useFile>false</useFile>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
