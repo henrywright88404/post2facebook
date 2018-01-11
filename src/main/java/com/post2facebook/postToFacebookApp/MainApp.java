@@ -1,31 +1,15 @@
 package com.post2facebook.postToFacebookApp;
 
-import static org.junit.Assert.assertNotNull;
-
-import com.post2facebook.Gmail.EmailMessage;
 import com.post2facebook.chartCreation.*;
 import com.post2facebook.claim_data.ClaimDataSummarizer;
 import com.post2facebook.claim_data.ExcelReader;
 import com.post2facebook.facebook.FacebookPost;
-import com.post2facebook.viewController.GmailToFacebookContoller;
 
 public class MainApp {
 
 	public static void main(String[] args) {
-		ensureDBhasMessages();
-	}
-	
-	public static void ensureDBhasMessages(){
-    	
-		GmailToFacebook g2f = new GmailToFacebook();
-
-		EmailMessage message = g2f.getNextUnpostedMessage();
-		System.out.println(message.getId());
-		
-		if(message.getId() == null || message.getId().equals("") || message.getId().equals("999999999")){
-			g2f.CheckForNewMessagesAddToDB();
-			message = g2f.getNextUnpostedMessage();
-		}		
+		GmailToFacebook gmailToFacebook = new GmailToFacebook();
+		gmailToFacebook.CheckForNewMessagesAddToDB();
 	}
 	
 	public static void gmailToFacebookOnlyDemo(){
