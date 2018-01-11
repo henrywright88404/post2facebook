@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -46,11 +47,21 @@ public class GmailToFacebook {
 	}
 	
 	public void addMessageToDB(EmailMessage message){
-		SessionFactory factory = getSessionFactory();
-		Session session = factory.getCurrentSession();
-		session.beginTransaction();
-		session.save(message);
-		session.getTransaction().commit();
+		Session session = null;
+		Transaction tx = null;
+		try{
+			SessionFactory factory = getSessionFactory();
+			session = factory.getCurrentSession();
+			tx = session.beginTransaction();
+			session.save(message);
+			tx.commit();
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		
 	}
 	
 	public void deleteMessageFromDB(EmailMessage message){
@@ -77,7 +88,7 @@ public class GmailToFacebook {
 		
 		// create a session 
 		Session session = factory.getCurrentSession();
-		session.beginTransaction();
+		session.getTransaction().begin();
 		
 		try {
 			List<String> messageIdList = GmailController.getAllMessageIdMatchingQuery("darby@luv2code.com", "P.S. Do you know someone that could use a little help learning more about Java? Please forward this email to them. They'll thank you for it :-)");
@@ -103,16 +114,17 @@ public class GmailToFacebook {
         			
 					EmailMessage message = new EmailMessage(messageID, msg);
 					System.out.println("Message length: "+ message.getMessage().length());
-					session.save(message);
+					addMessageToDB(message);
 					System.out.println("Emails Missing from DB ="+ ++count);
 				}
 			}
 			
-			session.getTransaction().commit();
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} finally{
 			factory.close();
+			session.close();
 		}
 		
 	}
@@ -165,7 +177,7 @@ public class GmailToFacebook {
 				List<EmailMessage> messageList = session.createQuery(criteria).getResultList();
 				
 				if (messageList.size()<1){
-					EmailMessage error = new EmailMessage("999999999","There were no messages in the database");
+					EmailMessage error = new EmailMessage("error","error");
 					return error;
 				}
 				return messageList.get(0);
