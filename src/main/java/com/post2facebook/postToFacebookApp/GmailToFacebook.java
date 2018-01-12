@@ -124,7 +124,6 @@ public class GmailToFacebook {
 			e.printStackTrace();
 		} finally{
 			factory.close();
-			session.close();
 		}
 		
 	}
