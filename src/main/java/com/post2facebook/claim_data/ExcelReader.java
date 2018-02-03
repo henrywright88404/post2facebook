@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -94,10 +96,9 @@ public class ExcelReader {
 		
 		List<ClaimData> claimData = new ArrayList<>();
 		
-		try {
-			File convFile = new File(report.getOriginalFilename());
-			report.transferTo(convFile);
-			br = new BufferedReader(new FileReader(convFile));
+		try {			
+			InputStream is = report.getInputStream();
+			br = new BufferedReader(new InputStreamReader(is));
 		
 			try {
 				//debug line 
@@ -146,7 +147,7 @@ public class ExcelReader {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("No File found: ");
+			System.out.println("No File found: "+ report.getOriginalFilename());
 			e.printStackTrace();
 		} catch (NumberFormatException | IOException e) {
 			e.printStackTrace();

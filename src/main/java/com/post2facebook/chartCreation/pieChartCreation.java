@@ -47,6 +47,7 @@ public class pieChartCreation {
 			    chartDir = lastFilePath.get().toAbsolutePath().toString().replaceAll("/", "\\");
 			}     
 		} catch (IOException e) {
+			System.out.println(chartDir);
 			e.printStackTrace();
 		}
 		return chartDir;
