@@ -103,6 +103,7 @@ public class ChartToFacebookController {
 		FacebookPost fbPost = new FacebookPost();
 		fbPost.createImagePostInGroup(message, fbPost.getJava101id(), imageAsbytes);
 
+
 		return retVal;
 
 	}
