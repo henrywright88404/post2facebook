@@ -122,6 +122,17 @@ public class FacebookPost {
 				BinaryAttachment.with(imageFilePath.substring(imageFilePath.length() - 34), imageAsBytes, "image/png"),
 				Parameter.with("message", message));
 	}
+	
+	public void createImagePostInGroup(String message, String groupId, byte[] imageAsBytes ) {
+
+
+		DefaultFacebookClient client = new DefaultFacebookClient(accessToken, Version.LATEST);
+
+		client.publish(groupId + "/photos", FacebookType.class,
+				BinaryAttachment.with("image/png", imageAsBytes),
+				Parameter.with("message", message));
+	}
+	
 
 	private byte[] fetchBytesFromImage(String imageFile) {
 
