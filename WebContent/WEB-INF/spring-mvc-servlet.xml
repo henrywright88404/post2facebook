@@ -13,7 +13,18 @@
 
 	<!-- Step 3: Add support for component scanning -->
 	<context:component-scan base-package="com.post2facebook" />
-
+	
+	<bean id="fileValidator"
+		class ="com.post2facebook.viewController.FileValidator"></bean>
+		
+	<bean id="multipartResolver"
+	    class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<bean id="messageSource"
+	    class="org.springframework.context.support.ResourceBundleMessageSource">
+	    <property name="basename" value="validation" />
+	</bean>    
+	
 	<!-- Step 4: Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
 
