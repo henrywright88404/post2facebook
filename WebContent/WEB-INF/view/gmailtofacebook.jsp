@@ -18,7 +18,7 @@ Next message to be posted:
 	<input type="submit" value="Post a Gmail Message to facebook"> </input>
 </form:form>
 
-</p>
+
 
 
 
