@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +48,7 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/")
+	@Async
 	public String fileUploaded(Model model, @Validated ReportFile reportFile,
 			BindingResult result){
 
