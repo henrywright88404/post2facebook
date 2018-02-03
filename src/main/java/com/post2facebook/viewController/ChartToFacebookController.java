@@ -95,15 +95,16 @@ public class ChartToFacebookController {
 	@PostMapping("/posted")
 	@ResponseBody
 	public String posted(Model model, 
-			@ModelAttribute("faultChart") String faultChart, 
+			@ModelAttribute("FaultChart") String encodedString, 
 			@ModelAttribute("message") String message){
-
+		
+		
+		System.out.println(encodedString.isEmpty());
+		System.out.println(message.isEmpty());
 		String retVal="postedReportSuccess";
 		
-		
-		byte[] imageAsbytes = Base64.decodeBase64(faultChart);
 		FacebookPost fbPost = new FacebookPost();
-		fbPost.createImagePostInGroup(message, fbPost.getJava101id(), imageAsbytes);
+		fbPost.createImagePostInGroup(message, fbPost.getJava101id(), encodedString.getBytes());
 	
 		return retVal;
 		
