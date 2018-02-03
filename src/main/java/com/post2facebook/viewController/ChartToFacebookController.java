@@ -28,7 +28,6 @@ import com.post2facebook.facebook.FacebookPost;
 
 @Controller
 @RequestMapping("/charttofacebook")
-@EnableAsync
 public class ChartToFacebookController {
 
 
@@ -48,7 +47,6 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/")
-	@Async
 	public String fileUploaded(Model model, @Validated ReportFile reportFile,
 			BindingResult result){
 
