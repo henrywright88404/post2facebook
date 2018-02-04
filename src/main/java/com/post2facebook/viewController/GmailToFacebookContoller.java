@@ -14,8 +14,10 @@ public class GmailToFacebookContoller {
 
 	@RequestMapping("/")
 	public String showMain(Model theModel){
-		
+		g2f.CheckForNewMessagesAddToDB();
+
 		EmailMessage email = g2f.getNextUnpostedMessage();
+		
 		
 		theModel.addAttribute("email", email);
 		return "gmailtofacebook";

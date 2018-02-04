@@ -24,5 +24,7 @@ hs_err_pid*
 #properties files
 *.properties
 
+#settings files
+*.settings
 
 /target/

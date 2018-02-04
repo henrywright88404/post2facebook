@@ -8,7 +8,8 @@ import com.post2facebook.facebook.FacebookPost;
 public class MainApp {
 
 	public static void main(String[] args) {
-		gmailToFacebookOnlyDemo();
+		GmailToFacebook gmailToFacebook = new GmailToFacebook();
+		gmailToFacebook.CheckForNewMessagesAddToDB();
 	}
 	
 	public static void gmailToFacebookOnlyDemo(){
