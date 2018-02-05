@@ -58,35 +58,47 @@ public class ChartToFacebookController {
 			returnVal = "postreport";
 		} else {
 
-			try{
-			MultipartFile multipartFile = reportFile.getReportFile();
-			ExcelReader xlReader = new ExcelReader();
-			ClaimDataSummarizer claimSummary = new ClaimDataSummarizer();
-			pieChartCreation pieChart = new pieChartCreation();
-
-
-			claimSummary.summerizeReport(xlReader.readReport(multipartFile));
-			String filePathToChart = pieChart.faultPieChartFromClaimData(claimSummary);
-
-			File file = new File(filePathToChart);
-			FileInputStream fis=new FileInputStream(file);
-			ByteArrayOutputStream bos=new ByteArrayOutputStream();
-
-			int b;
-			byte[] buffer = new byte[1024];
-			while((b=fis.read(buffer))!=-1){
-			   bos.write(buffer,0,b);
-			}
-			byte[] fileBytes=bos.toByteArray();
-			fis.close();
-			bos.close();
-
-
-			byte[] encoded = Base64.encodeBase64(fileBytes);
-			String encodedString = new String(encoded);
-
-			model.addAttribute("chart", encodedString);
-			}catch(Exception e){
+			Runnable runnable =() -> {
+				try{
+				MultipartFile multipartFile = reportFile.getReportFile();
+				ExcelReader xlReader = new ExcelReader();
+				ClaimDataSummarizer claimSummary = new ClaimDataSummarizer();
+				pieChartCreation pieChart = new pieChartCreation();
+	
+	
+				claimSummary.summerizeReport(xlReader.readReport(multipartFile));
+				String filePathToChart = pieChart.faultPieChartFromClaimData(claimSummary);
+	
+				File file = new File(filePathToChart);
+				FileInputStream fis=new FileInputStream(file);
+				ByteArrayOutputStream bos=new ByteArrayOutputStream();
+	
+				int b;
+				byte[] buffer = new byte[1024];
+				while((b=fis.read(buffer))!=-1){
+				   bos.write(buffer,0,b);
+				}
+				byte[] fileBytes=bos.toByteArray();
+				fis.close();
+				bos.close();
+	
+	
+				byte[] encoded = Base64.encodeBase64(fileBytes);
+				String encodedString = new String(encoded);
+	
+				model.addAttribute("chart", encodedString);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			};
+			
+			Thread thread = new Thread(runnable);
+			thread.start();
+			
+			try {
+				thread.join(0);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
