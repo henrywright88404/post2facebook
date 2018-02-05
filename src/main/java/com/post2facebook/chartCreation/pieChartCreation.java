@@ -1,6 +1,7 @@
 package com.post2facebook.chartCreation;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +51,28 @@ public class pieChartCreation {
 			e.printStackTrace();
 		}
 		return chartDir;
+  }
+	
+	public byte[] byteArrayfaultPieChartFromClaimData(ClaimDataSummarizer claimDataSummary){
+		  
+	    byte[] imageByteArray = null;
+	  	DefaultPieDataset pieDataset = new DefaultPieDataset();
+	  	ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    pieDataset.setValue("Insured at Fault", claimDataSummary.getInsuredAtFault());
+	    pieDataset.setValue("Third Party at Fault", claimDataSummary.getThirdPartyAtFault());
+	    pieDataset.setValue("Unidentified Third Party", claimDataSummary.getUnidentifiedThirdParties());
+	    pieDataset.setValue("Liability Not Determined", claimDataSummary.getNotYetDetermined());
+
+	    JFreeChart chart = ChartFactory.createPieChart3D("Fault Representation", pieDataset, true, true, true);
+	    
+	    try {
+			ChartUtils.writeChartAsPNG( out , chart, 400, 300);
+			imageByteArray = out.toByteArray();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return imageByteArray;
   }
   
 

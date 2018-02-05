@@ -9,10 +9,10 @@
 	<hr>
 
 
-	<form method="post" action="posted" >
-	<input type="text" modelAttribute="message" placeholder="Type your message to go with this report here"><br>
-	
-		<img src="data:image/jpeg;base64,${chart}" modelAttribute="FaultChart">
+	<form method="post"modelAttribute="faultChart" action="posted" >
+	<input type="text" name="message" placeholder="Type your message to go with this report here"><br>
+		<input type="hidden" name="faultChart" value=${chart }></input>
+		<img src="data:image/jpeg;base64,${chart}" name="faultChart">
 		<br>
 		
 		 <input	type="submit" value="Post this chart to facebook"></input>
