@@ -67,10 +67,16 @@ public class ChartToFacebookController {
 			ClaimDataSummarizer claimSummary = new ClaimDataSummarizer();
 			pieChartCreation pieChart = new pieChartCreation();
 
-
-			claimSummary.summerizeReport(xlReader.readReport(multipartFile));
-
-			Thread.sleep(2000L);
+			Runnable reportSummary = () -> {
+				claimSummary.summerizeReport(xlReader.readReport(multipartFile));
+			};
+			
+			reportSummary.run();
+			Thread reportThread = new Thread(reportSummary);
+			
+			reportThread.start();
+			reportThread.join();
+			
 			byte[] file =  pieChart.byteArrayfaultPieChartFromClaimData(claimSummary);
 			
 
