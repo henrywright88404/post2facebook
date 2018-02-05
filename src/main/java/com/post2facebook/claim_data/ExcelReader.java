@@ -98,10 +98,6 @@ public class ExcelReader {
 		
 		try {
 			InputStream is = report.getInputStream();
-			
-			
-			File convFile = new File(report.getOriginalFilename());
-			report.transferTo(convFile);
 			br = new BufferedReader(new InputStreamReader(is));
 		
 			try {
