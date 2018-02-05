@@ -3,14 +3,11 @@ package com.post2facebook.viewController;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.concurrent.Executor;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +33,7 @@ public class ChartToFacebookController {
 
 	@Autowired
 	FileValidator validator;
-	
+
 	@InitBinder("postreport")
 	private void initBinder (WebDataBinder binder){
 		binder.setValidator(validator);
@@ -50,6 +47,7 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/")
+	@Async
 	public String fileUploaded(Model model, @Validated ReportFile reportFile,
 			BindingResult result){
 
@@ -67,16 +65,9 @@ public class ChartToFacebookController {
 			ClaimDataSummarizer claimSummary = new ClaimDataSummarizer();
 			pieChartCreation pieChart = new pieChartCreation();
 
-			Runnable reportSummary = () -> {
-				claimSummary.summerizeReport(xlReader.readReport(multipartFile));
-			};
-			
-			reportSummary.run();
-			Thread reportThread = new Thread(reportSummary);
-			
-			reportThread.start();
-			reportThread.join();
-			
+
+			claimSummary.summerizeReport(xlReader.readReport(multipartFile));
+
 			byte[] file =  pieChart.byteArrayfaultPieChartFromClaimData(claimSummary);
 			
 
@@ -108,7 +99,5 @@ public class ChartToFacebookController {
 		return retVal;
 
 	}
-	
-	
 
 }
