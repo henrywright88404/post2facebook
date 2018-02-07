@@ -47,7 +47,6 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/")
-	@Async
 	public String fileUploaded(Model model, @Validated ReportFile reportFile,
 			BindingResult result){
 
@@ -85,7 +84,6 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/posted")
-	@ResponseBody
 	public String posted(Model model,
 			@ModelAttribute("faultChart") String faultChart,
 			@ModelAttribute("message") String message){

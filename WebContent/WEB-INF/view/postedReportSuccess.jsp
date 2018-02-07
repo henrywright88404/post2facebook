@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -20,26 +21,34 @@
 <body>
 	<div class="container">
 		<div class="jumbotron">
-			<h2 class="col-sm-12">Home page</h2>
+			<h2 class="col-sm-12">Post2Facebook</h2>
 		</div>
+		
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Post2Facebook</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="gmailtofacebook/">Post Email</a></li>
-					<li><a href="charttofacebook/">Post report</a></li>
+					<li><a href="${contextPath}/main-menu">Home</a></li>
+					<li><a href="${contextPath}/gmailtofacebook/">Post Email</a></li>
+					<li class="active"><a href="${contextPath}/charttofacebook/">Post report</a></li>
 				</ul>
 			</div>
 		</nav>
+	
+	<p>Report posted successfully</p>
+	<hr>
 
+	<a href="gmailtofacebook/">post Email</a>
 
-		<p class="col-sm-12">Welcome to the Post2Facebook application. The
-			purpose of this application is to show case the use of various
-			technologies and frameworks to create a complete application.</p>
+	<br>
+	<br>
 
-	</div>
+	<a href="charttofacebook/">post Report</a>
+
+	<br>
+	<br>
+</div>
 </body>
 </html>
