@@ -96,7 +96,7 @@ public class ExcelReader {
 		
 		List<ClaimData> claimData = new ArrayList<>();
 		
-		try {			
+		try {
 			InputStream is = report.getInputStream();
 			br = new BufferedReader(new InputStreamReader(is));
 		
@@ -147,7 +147,7 @@ public class ExcelReader {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("No File found: "+ report.getOriginalFilename());
+			System.out.println("No File found: ");
 			e.printStackTrace();
 		} catch (NumberFormatException | IOException e) {
 			e.printStackTrace();
