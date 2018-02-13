@@ -1,13 +1,9 @@
 package com.post2facebook.viewController;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import javax.validation.Valid;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.post2facebook.chartCreation.pieChartCreation;
@@ -47,14 +42,16 @@ public class ChartToFacebookController {
 	}
 
 	@PostMapping("/")
-	public String fileUploaded(Model model, @Validated ReportFile reportFile,
+	public String fileUploaded(Model model, @Valid ReportFile reportFile,
 			BindingResult result){
-
+		
+       validator.validate(reportFile, result);
 
 		String returnVal = "publish-report";
 		System.out.println("inside file uploaded");
 		System.out.println(("file name: "+ reportFile.getReportFile().getOriginalFilename()));
 		if (result.hasErrors()){
+			System.out.println("has errors.");
 			returnVal = "postreport";
 		} else {
 
@@ -68,9 +65,6 @@ public class ChartToFacebookController {
 			claimSummary.summerizeReport(xlReader.readReport(multipartFile));
 
 			byte[] file =  pieChart.byteArrayfaultPieChartFromClaimData(claimSummary);
-			
-
-
 			byte[] encoded = Base64.encodeBase64(file);
 			String encodedString = new String(encoded);
 
