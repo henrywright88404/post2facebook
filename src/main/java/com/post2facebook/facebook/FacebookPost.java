@@ -107,7 +107,7 @@ public class FacebookPost {
 
 
 		fbClient.publish(groupid + "/feed", FacebookType.class, Parameter.with("message",
-				"***This is an Automatic post by Marc's Gmail to Facebook application***" + 
+				"***This is an Automatic post by Marc's Gmail to Facebook application***  \n" + 
 				message ));
 
 	}
