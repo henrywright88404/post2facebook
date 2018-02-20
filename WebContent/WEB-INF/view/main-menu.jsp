@@ -31,6 +31,7 @@
 					<li class="active"><a href="#">Home</a></li>
 					<li><a href="gmailtofacebook/">Post Email</a></li>
 					<li><a href="charttofacebook/">Post report</a></li>
+					<li><a href="gmailtofacebook/auto-post">Auto Post</a></li>
 				</ul>
 			</div>
 		</nav>

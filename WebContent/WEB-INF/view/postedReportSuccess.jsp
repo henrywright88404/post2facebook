@@ -33,6 +33,8 @@
 					<li><a href="${contextPath}/main-menu">Home</a></li>
 					<li><a href="${contextPath}/gmailtofacebook/">Post Email</a></li>
 					<li class="active"><a href="${contextPath}/charttofacebook/">Post report</a></li>
+					<li><a href="${contextPath}gmailtofacebook/auto-post">Auto Post</a></li>
+				
 				</ul>
 			</div>
 		</nav>

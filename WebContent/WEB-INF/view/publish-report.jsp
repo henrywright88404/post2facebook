@@ -33,7 +33,8 @@
 					<li><a href="${pageContext.request.contextPath }/main-menu/">Home</a></li>
 					<li><a href="${pageContext.request.contextPath }/gmailtofacebook/">Post Email</a></li>
 					<li class="active"><a href="${pageContext.request.contextPath }/charttofacebook/">Post report</a></li>
-				</ul>
+					<li><a href="${pageContext.request.contextPath }gmailtofacebook/auto-post">Auto Post</a></li>
+					</ul>
 			</div>
 		</nav>
 	<form method="post" modelAttribute="faultChart" action="posted">

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.post2facebook.Gmail.EmailMessage;
+import com.post2facebook.background.AutoPost;
 import com.post2facebook.postToFacebookApp.GmailToFacebook;
 
 @Controller
@@ -29,6 +30,16 @@ public class GmailToFacebookContoller {
 		g2f.PostUnpostedMessageToFacebook();
 		
 		return "email-posted-confirmation";
+	}
+	
+	@RequestMapping("/auto-post")
+	public String autopost(Model theModel){
+		theModel.addAttribute("timeunit", AutoPost.getTimeunit().toString());
+		theModel.addAttribute("unit", AutoPost.getUnit());
+		theModel.addAttribute("timeofnextpost", AutoPost.getTimeNextPost());
+		
+		
+		return "auto-post";
 	}
 	
 	
