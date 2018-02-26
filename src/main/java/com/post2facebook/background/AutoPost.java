@@ -37,7 +37,7 @@ public class AutoPost extends ContextLoaderListener {
 				g2facebook.CheckForNewMessagesAddToDB();
 					System.out.println("BACKGROUND - Finished checking for messages to add to the database");
 					System.out.println("BACKGROUND - Posting next unposted message to facebook");
-				g2facebook.PostUnpostedMessageToFacebook();
+				//g2facebook.PostUnpostedMessageToFacebook();
 					System.out.println("BACKGROUND - Finished Posting next unposted message to facebook");
 					timeLastPosted = LocalDateTime.now();
 					
