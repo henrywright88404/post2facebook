@@ -2,18 +2,16 @@ package com.post2facebook.postToFacebookAppTests;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
-
 import org.junit.Test;
 
 import com.post2facebook.Gmail.EmailMessage;
-import com.post2facebook.postToFacebookApp.GmailToFacebook;
+import com.post2facebook.controllers.gmail_controller.GmailToFacebookController;
 
 public class GmailToFacebookTest {
     @Test
 	public void ensureDBhasMessages(){
     	
-		GmailToFacebook g2f = new GmailToFacebook();
+		GmailToFacebookController g2f = new GmailToFacebookController();
 
 		EmailMessage message = g2f.getNextUnpostedMessage();
 		System.out.println(message.getId());
@@ -30,7 +28,7 @@ public class GmailToFacebookTest {
 	@Test
 	public void testDBAdd() {
 		EmailMessage orMessage = new EmailMessage("test","test");
-		GmailToFacebook g2f = new GmailToFacebook();
+		GmailToFacebookController g2f = new GmailToFacebookController();
 		
 		g2f.addMessageToDB(orMessage);
 		
@@ -43,7 +41,7 @@ public class GmailToFacebookTest {
 	
 	@Test
 	public void testDBdelete() {
-		GmailToFacebook g2f = new GmailToFacebook();
+		GmailToFacebookController g2f = new GmailToFacebookController();
 		EmailMessage orMessage = new EmailMessage("test","test");
 
 		g2f.deleteMessageFromDB(orMessage);

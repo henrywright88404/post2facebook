@@ -1,4 +1,4 @@
-package com.post2facebook.viewController;
+package com.post2facebook.controllers.view_controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.post2facebook.Gmail.EmailMessage;
 import com.post2facebook.background.AutoPost;
-import com.post2facebook.postToFacebookApp.GmailToFacebook;
+import com.post2facebook.controllers.gmail_controller.GmailToFacebookController;
 
 @Controller
 @RequestMapping("/gmailtofacebook")
 public class GmailToFacebookContoller {
-	GmailToFacebook g2f = new GmailToFacebook();
+	GmailToFacebookController g2f = new GmailToFacebookController();
 
 	@RequestMapping("/")
 	public String showMain(Model theModel){

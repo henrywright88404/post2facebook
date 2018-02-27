@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import com.post2facebook.viewController.FileValidator;
+import com.post2facebook.controllers.view_controller.FileValidator;
 
 @Configuration 
 @ComponentScan
@@ -37,7 +37,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Bean(name="multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSizePerFile(10240); //10Kb
+        resolver.setMaxUploadSizePerFile(10000000); //10Mb
         resolver.setDefaultEncoding("UTF-8");
         resolver.setResolveLazily(true);
         return resolver;

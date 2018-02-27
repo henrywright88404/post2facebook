@@ -11,13 +11,13 @@ import javax.servlet.annotation.WebListener;
 
 import org.springframework.web.context.ContextLoaderListener;
 
-import com.post2facebook.postToFacebookApp.GmailToFacebook;
+import com.post2facebook.controllers.gmail_controller.GmailToFacebookController;
 
 @WebListener
 public class AutoPost extends ContextLoaderListener {
 	
 	private ScheduledExecutorService scheduler;
-    private GmailToFacebook g2facebook = new GmailToFacebook();
+    private GmailToFacebookController g2facebook = new GmailToFacebookController();
     private static TimeUnit timeunit = TimeUnit.HOURS; 
     private static int unit = 24;
     private static LocalDateTime timeLastPosted;

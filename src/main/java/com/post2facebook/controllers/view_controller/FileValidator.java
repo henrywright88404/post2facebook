@@ -1,4 +1,4 @@
-package com.post2facebook.viewController;
+package com.post2facebook.controllers.view_controller;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

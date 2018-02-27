@@ -1,4 +1,4 @@
-package com.post2facebook.viewController;
+package com.post2facebook.controllers.view_controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
